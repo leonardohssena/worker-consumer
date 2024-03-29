@@ -9,7 +9,7 @@ export default async function consumer() {
     const app = await NestFactory.createMicroservice<MicroserviceOptions>(ConsumerModule, {
       transport: Transport.RMQ,
       options: {
-        urls: process.env.CONSUMER_URLS.split(','),
+        urls: (process.env.CONSUMER_URLS || 'amqps://localhost:5671').split(','),
         queue: process.env.CONSUMER_QUEUE,
         noAck: false,
         prefetchCount: process.env.CONSUMER_PREFETCH_COUNT ? parseInt(process.env.CONSUMER_PREFETCH_COUNT) : 1,
